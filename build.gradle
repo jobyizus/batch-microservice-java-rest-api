@@ -1,0 +1,277 @@
+  buildscript {
+  repositories {
+    def e = System.getenv()
+    ext.bamboo = e['bamboo_buildKey']
+    if (ext.bamboo) {
+      maven {
+        url "${sunatPUrepo}libs-release"
+      }
+    } else {
+      jcenter()
+      maven {
+        url 'https://plugins.gradle.org/m2/'
+      }
+    }
+  }
+  dependencies {
+    classpath 'com.circulosiete.dev.plugin.ms:gen-ms-dev-plugin:0.1.128'
+    classpath('org.codehaus.groovy.modules.http-builder:http-builder:0.6') {
+      exclude group: 'org.codehaus.groovy', module: 'groovy'
+    }
+    classpath(group: 'org.codehaus.groovy', name: 'groovy', version: '2.1.0')
+
+    classpath('org.hidetake:gradle-ssh-plugin:2.9.0')
+
+  }
+
+}
+
+apply plugin: 'com.circulosiete.dev.plugin.ms'
+apply plugin: 'groovy'
+
+mainClassName = 'pe.gob.sunat.recaudacion3.tributaria.administracion.formularios.main.FormulariosApplication'
+
+repositories {
+  def e = System.getenv()
+  ext.bamboo = e['bamboo_buildKey']
+
+  if (ext.bamboo) {
+    mavenLocal()
+    //Usar repos de Sunat
+    maven {
+      url "${sunatPUrepo}libs-release"
+    }
+  } else {
+    mavenLocal()
+    jcenter()
+    maven {
+      url sunatPUrepo
+    }
+  }
+}
+
+dependencies {
+  compile 'tecnologia3.arquitectura:tecnologia3-arquitectura-framework-baseframework:3.0.130'
+  compile 'recaudacion3.tributaria:recaudacion3-tributaria-administracion-baseformularios-backend:3.0.233'
+  compile 'recaudacion3.tributaria:recaudacion3-tributaria-administracion-baserecauda-backend:3.0.166'
+  compile 'recaudacion3.tributaria:recaudacion3-tributaria-administracion-basesirat-backend:3.0.52'
+  //Testing
+  // https://mvnrepository.com/artifact/org.mockito/mockito-core
+  testCompile group: 'org.mockito', name: 'mockito-core', version: '2.15.0'
+
+  testCompile 'tecnologia3.arquitectura:tecnologia3-arquitectura-framework-basetesting:0.1.29'
+}
+
+// Promotion
+
+import groovyx.net.http.HTTPBuilder
+
+import static groovyx.net.http.ContentType.JSON
+import static groovyx.net.http.Method.POST
+
+class PromoteTask extends DefaultTask {
+  PromoteTask() {
+    group = "Promotion"
+  }
+  @Input
+  def repoKey
+
+  @Input
+  def targetRepo
+
+  @Input
+  def dockerRepository
+
+  @Input
+  def tag
+
+  @Input
+  def username
+
+  @Input
+  def password
+
+  @Input
+  def contextUrl
+
+  @Input
+  def copy = true
+
+  @TaskAction
+  void promote() {
+    URL url = new URL("$contextUrl/api/docker/$repoKey/v2/promote")
+    URI uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef())
+    def http = new HTTPBuilder(uri.toString())
+
+    http.setHeaders([Authorization: 'Basic ' + ("$username:$password".toString().bytes.encodeBase64())])
+
+    println "Url: ${uri.toString()}"
+    println "RepoKey: ${repoKey}"
+    println "TargetRepo: ${targetRepo}"
+    println "DockerRepository: ${dockerRepository}"
+    println "Tag: ${tag}"
+
+
+    http.request(POST) {
+      requestContentType = JSON
+      body = [
+              targetRepo      : targetRepo,
+              dockerRepository: dockerRepository,
+              tag             : tag, copy: copy]
+
+      response.success = { resp ->
+        println "POST response status: ${resp.statusLine}"
+      }
+
+      response.failure = { resp ->
+        println "Request Failed: ${resp.statusLine}"
+      }
+    }
+  }
+}
+
+task promoteToCalidad(type: PromoteTask) {
+  repoKey = 'integracion1-dr-local'
+  targetRepo = 'calidad1-dr-local'
+  dockerRepository = 'microservices/recaudacion3-tributaria-administracion-procesobatchformulario-backend'
+  tag = version
+  username = 'psilva.analista.externo'
+  password = 'psilva1'
+  contextUrl = 'http://artifactory.insi.sunat.peru:7003/artifactory'
+}
+
+
+task promoteToProduccion(type: PromoteTask) {
+  repoKey = 'calidad1-dr-local'
+  targetRepo = 'produccion1-dr-local'
+  dockerRepository = 'microservices/recaudacion3-tributaria-administracion-procesobatchformulario-backend'
+  tag = version
+  username = 'psilva.analista.externo'
+  password = 'psilva1'
+  contextUrl = 'http://artifactory.insi.sunat.peru:7003/artifactory'
+}
+
+// K8S Set New Image
+// https://gradle-ssh-plugin.github.io/docs/
+apply plugin: 'org.hidetake.ssh'
+
+ssh.settings {
+  knownHosts = allowAnyHosts
+}
+
+remotes {
+  integracion {
+    host = '192.168.251.35'
+    user = 'root'
+    password = 'S3rv3rCosapi'
+  }
+  integracion2 {
+    host = '192.168.251.35'
+    user = 'root'
+    password = 'S3rv3rCosapi'
+  }
+  calidad {
+    host = '192.168.44.91'
+    user = 'root'
+    password = 'S3rv3rCosapi'
+  }
+  calidad2 {
+    host = '192.168.66.94'
+    user = 'root'
+    password = 'S3rv3rCosapi'
+  }
+  produccion {
+    host = '192.168.251.35'
+    user = 'root'
+    password = 'S3rv3rCosapi'
+  }
+  produccion2 {
+    host = '192.168.251.35'
+    user = 'root'
+    password = 'S3rv3rCosapi'
+  }
+}
+
+task setNewPublishDockerImageIntegracion {
+  doLast {
+    ssh.run {
+      session(remotes.integracion) {
+        execute "kubectl apply -f microservices/proceso-batch-formulario --record"
+        execute "kubectl set image deployments/proceso-batch-formulario proceso-batch-formulario=integracion1-dr-local.artifactory.insi.sunat.peru/microservices/recaudacion3-tributaria-administracion-procesobatchformulario-backend:$version"
+      }
+//      session(remotes.integracion2) {
+//        execute "kubectl apply -f microservices/vproceso-batch-formulario --record"
+//        execute "kubectl set image deployments/proceso-batch-formulario proceso-batch-formulario=integracion1-dr-local.artifactory.insi.sunat.peru/microservices/recaudacion3-tributaria-administracion-procesobatchformulario-backend:$version"
+//      }
+    }
+  }
+}
+
+task setNewDockerImageIntegracion {
+  doLast {
+    ssh.run {
+      session(remotes.integracion) {
+        execute "kubectl set image deployments/proceso-batch-formulario proceso-batch-formulario=integracion1-dr-local.artifactory.insi.sunat.peru/microservices/recaudacion3-tributaria-administracion-procesobatchformulario-backend:$version"
+      }
+//      session(remotes.integracion2) {
+//        execute "kubectl set image deployments/proceso-batch-formulario proceso-batch-formulario=integracion1-dr-local.artifactory.insi.sunat.peru/microservices/recaudacion3-tributaria-administracion-procesobatchformulario-backend:$version"
+//      }
+    }
+  }
+}
+
+task setNewDockerImageCalidad {
+  doLast {
+    ssh.run {
+      session(remotes.calidad) {
+        execute "kubectl set image deployments/proceso-batch-formulario proceso-batch-formulario=calidad1-dr-local.artifactory.insi.sunat.peru/microservices/recaudacion3-tributaria-administracion-procesobatchformulario-backend:$version"
+      }
+      session(remotes.calidad2) {
+        execute "kubectl set image deployments/proceso-batch-formulario proceso-batch-formulario=calidad1-dr-local.artifactory.insi.sunat.peru/microservices/recaudacion3-tributaria-administracion-procesobatchformulario-backend:$version"
+      }
+    }
+  }
+}
+
+task setNewDockerImageProduccion {
+  doLast {
+    ssh.run {
+      session(remotes.produccion) {
+        execute "kubectl set image deployments/proceso-batch-formulario proceso-batch-formulario=produccion1-dr-local.artifactory.insi.sunat.peru/microservices/recaudacion3-tributaria-administracion-procesobatchformulario-backend:$version"
+      }
+      session(remotes.produccion2) {
+        execute "kubectl set image deployments/proceso-batch-formulario proceso-batch-formulario=produccion1-dr-local.artifactory.insi.sunat.peru/microservices/recaudacion3-tributaria-administracion-procesobatchformulario-backend:$version"
+      }
+    }
+  }
+}
+
+task setRollbackDockerIntegracion {
+  doLast {
+    ssh.run {
+      session(remotes.integracion) {
+        execute "kubectl rollout undo deployments proceso-batch-formulario"
+      }
+    }
+  }
+}
+
+task setRollbackDockerCalidad {
+  doLast {
+    ssh.run {
+      session(remotes.calidad) {
+        execute "kubectl rollout undo deployments proceso-batch-formulario"
+      }
+    }
+  }
+}
+
+task setRollbackDockerProduccion {
+  doLast {
+    ssh.run {
+      session(remotes.produccion) {
+        execute "kubectl rollout undo deployments proceso-batch-formulario"
+      }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+                 http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+	<persistence-unit name="bdformulario" transaction-type="JTA">
+        <jta-data-source>jdbc/dgformulario</jta-data-source>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7770paramerroform</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7771paramcas</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7776usotutor</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7765paramrubro</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7775pregtutor</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7766paramseccion</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7767paramlinea</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7773paramcolasis</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7774paramcasasis</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7772condcalccas</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7768paramcolumna</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7769paramexprcalc</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7764paramform</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7777bandprespago</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7778formulario</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7779casillaform</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7780tributodecpag</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7781rectitributo</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7782anexaform</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7783casillasugfin</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7784coefigvdet</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7785coefigvper</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7786detapagoprev</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7787autoguardform</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7788cargapdt</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7795retepercigv</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T6610casrcrvipdt</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7789auditconsulta</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7790formfrec</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7791paramcabe</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7792paramdeta</class>
+			<class>pe.gob.sunat.recaudacion3.tributaria.administracion.model.T7794procesoband</class>
+
+			<exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>
+			<property name="eclipselink.target-server" value="pe.gob.sunat.tecnologia3.arquitectura.framework.microservices.config.AtomikosPlatform"/>
+            <property name="eclipselink.ddl-generation.output-mode" value="database"/>
+            <property name="eclipselink.cache.shared.default" value="false"/>
+      			<property name="eclipselink.session.customizer" value="pe.gob.sunat.tecnologia3.arquitectura.framework.microservices.util.jpa.log.JPAEclipseLinkSessionCustomizer"/>
+            </properties>
+	</persistence-unit>
+</persistence>

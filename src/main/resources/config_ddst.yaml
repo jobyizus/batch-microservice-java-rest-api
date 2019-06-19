@@ -1,0 +1,75 @@
+server:
+  applicationConnectors:
+    - type: http
+      port: 7113
+  adminConnectors:
+    - type: http
+      port: 17113
+  requestLog:
+    appenders: []
+
+#dataSources:
+#  - xaDataSourceClassName: com.informix.jdbcx.IfxXADataSource
+#    uniqueResourceName: ds1
+#    jndiName: jdbc/EM1DS
+#    maxPoolSize: 10
+#    xaProperties:
+#      user: informix
+#      password: informix
+#      serverName: form_reg
+#      databaseName: formulario
+#      portNumber: 50013
+#      ifxIFXHOST: 192.168.253.15
+dataSources:
+  - uniqueResourceName: ds1
+    jndiName: jdbc/dgformulario
+    url: jdbc:informix-sqli://192.168.253.15:50013/formulario:informixserver=form_reg;user=uswsigti;password=uswsigti;QueryTimeout=3000;
+    driverClassName: com.informix.jdbc.IfxDriver
+
+tamanioFileSize: 512000
+numDias: -6
+numHoras: -1
+indBloqueReproceso: 0
+indInstancia: form_reg
+fileserver1: /fileserver/fileserver1/
+fileserver2: /fileserver/fileserver2/
+fileserverbck: /fileserver/backup/
+
+
+remoteServiceLocation:
+  serviceBase: http://configuracion:7140
+
+jpaLog: 3
+msPodName: proceso-batch-formulario
+msNodeIp: localhost
+
+logging:
+  level: DEBUG
+  loggers:
+    io.dropwizard: WARN
+    org.eclipse: WARN
+    org.hibernate: WARN
+    org.apache.camel: WARN
+    com.mchange: WARN
+    com.netflix: WARN
+    org.jboss.weld.Version: INFO
+    org.jboss.weld: WARN
+    org.jboss.weld.environment.servlet.logging: INFO
+    io.dropwizard.jersey.DropwizardResourceConfig: INFO
+    io.dropwizard.server.ServerFactory: INFO
+    io.dropwizard.jersey.jackson.JsonProcessingExceptionMapper: INFO
+    pe.gob.sunat.tecnologia3.arquitectura.framework.microservices.model.jpa: WARN
+    org.glassfish.jersey.server.ServerRuntime: FATAL
+    org.jboss.weld.environment.servlet.logging: INFO
+    com.atomikos.icatch.console_log_level: INFO
+    com.atomikos.jdbc.AtomikosConnectionProxy: ERROR
+    io.dropwizard.jersey.jackson.JsonProcessingExceptionMapper: INFO
+    pe.gob.sunat.recaudacion3.tributaria.administracion.formularios: INFO
+    pe.gob.sunat.tecnologia3.arquitectura.framework.microservices.util.UtilLog: INFO, DEBUG, ERROR
+  appenders:
+    - type: file
+      currentLogFilename: logs\sunat.log
+      archivedLogFilenamePattern: logs\sunat-%d.log.gz
+      archivedFileCount: 5
+    - type: console
+      timeZone: EST

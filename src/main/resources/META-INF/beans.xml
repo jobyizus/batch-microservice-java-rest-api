@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+       xmlns:weld="http://jboss.org/schema/weld/beans" bean-discovery-mode="all">
+
+    <weld:scan>
+        <weld:include name="pe.gob.sunat.**"/>
+    </weld:scan>
+    
+      <interceptors>
+        <class>com.arjuna.ats.jta.cdi.transactional.TransactionalInterceptorRequired</class>
+        <class>com.arjuna.ats.jta.cdi.transactional.TransactionalInterceptorMandatory</class>
+        <class>com.arjuna.ats.jta.cdi.transactional.TransactionalInterceptorNever</class>
+        <class>com.arjuna.ats.jta.cdi.transactional.TransactionalInterceptorNotSupported</class>
+        <class>com.arjuna.ats.jta.cdi.transactional.TransactionalInterceptorRequiresNew</class>
+        <class>com.arjuna.ats.jta.cdi.transactional.TransactionalInterceptorSupports</class>
+    </interceptors>
+
+</beans>

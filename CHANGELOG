@@ -1,0 +1,209 @@
+
+0.0.2 / 2017-07-30
+==================
+
+  * mejorado Jenkins file
+  * agregado script de construccion
+  * actualizadas librerias
+  * actualizado el wrapper
+  * cambios baseframework 0.90
+  * cambios baseframework 0.90
+  * cambios inesperados
+  * cambios inesperados
+  * Cambios por tasa
+  * cambios inesperados
+  * cambios inesperados
+  * cambios innecesarios
+  * cambios inesperados
+  * QA - release 0.0.2 -incidenciaQA
+  * QA-version 0.0.1
+  * cambios de ultimo momento
+  * cambios receptorpdt
+  * cambios sugeridos
+  * cambios resagados batch
+  * cambios inesperados
+  * cambios inesperados
+  * mejoras en batch receptorPDT
+  * cambios necesarios
+  * cambios en batch
+  * cambios en batch
+  * actualizar microservicios
+  * cambios en rectificatoria
+  * cambios en rectificatoria
+  * cambios rectificatoria para 621
+  * cambios actualizado batch
+  * cambio de framework
+  * muestra usuario en casilla boletas
+  * cambios inesperados
+  * version anterior
+  * actualizar gradle
+  * Merge branch 'atributoNuevo' into 'master'
+  * atributo nuevo
+  * cambios inesperados
+  * Merge branch 'atributoNuevo' into 'master'
+  * actualizar gradle
+  * adecuacion monto pagar formulario boleta
+  * cambios inesperados Sonarp
+  * actualizacion version peristencia formulario
+  * cambios inesperados Sonarp
+  * cambios inesperados Sonarp
+  * cambios inesperados Sonarp
+  * cambios inesperados Sonarp
+  * cambios inesperados
+  * cambios inesperados
+  * cambios inesperados
+  * cambios inesperados
+  * proceso receptor PdT anexas
+  * proceso receptor PdT anexas
+  * actualizacion anexas
+  * actualizado el plugin de desarrollo
+  * agregado a la lista de ignorados
+  * borrados archivos no necesarios
+  * Anexas Form
+  * optimizacion de busquedas
+  * pruebas en desa
+  * pruebas en desa
+  * optimizar codigo Json
+  * optimizar codigo Json
+  * optimizar codigo Json
+  * optimizacion de entityManager y persistencia con Json
+  * subir mejoras de batchformulario
+  * avances integracion Batcheros con CargaPDT
+  * actualizar mapper json bandeja
+  * actualizar mapper json bandeja
+  * Merge branch 'master' of http://glv.cosapidata.com.pe/sunat/MS014-ProcesoBatchFormulario
+  * correccion de incidencias
+  * cambios ultimos
+  * cambios
+  * incidencias jsegovia
+  * cambios realizados
+  * cambios en batcheros incidenciasQA
+  * Actualizando fuentes EntityManagerFactory
+  * cambios version09mayo
+  * agregando codigo de los formularios 633 y 697
+  * cambios
+  * cambios necesarios para el proceso r7795retperigv
+  * Merge branch 'master' of ssh://glv.cosapidata.com.pe:10022/sunat/MS014-ProcesoBatchFormulario
+  * se aumenta la memoria
+  * cambios casilla 16 17
+  * cambios necesarios
+  * cambios necesarios
+  * cambios 16 17
+  * cambios boleta1617
+  * cambios inesperados
+  * cambios en 621 boletas
+  * cambios
+  * pago mayor o igual a 0
+  * tiempo de espera = 10s
+  * cambios sleep
+  * cambios inesperados
+  * actualizado el BaseFramework
+  * proceso redis batchformulario
+  * cambios sugeridos
+  * cambios actualizados resagados
+  * adecuar metodo para obtener formularios rezagados
+  * actualizado el BaseFramework
+  * validar con RECEPTOR PDT
+  * cambios inesperados
+  * agregadas anotaciones para generar metricas
+  * cambios proceso desktop
+  * nueva correccion.
+  * correccion de version BaseComunes
+  * Se adiciona verificacion de proceso bandeja.
+  * Merge branch 'master' of http://glv.cosapidata.com.pe/sunat/MS014-ProcesoBatchFormulario
+  * cambios inesperados
+  * cambios inesperados
+  * Merge branch 'master' of http://glv.cosapidata.com.pe/sunat/MS014-ProcesoBatchFormulario
+  * actualizado.
+  * actualizado el BaseFramework, actualizado el plugin de desarrollo, actualizado Gradle, actualizado el pipeline
+  * cambios
+  * subir cambios
+  * cambios inesperados
+  * cambios
+  * cambios
+  * cambios
+  * quitar log innecesarios
+  * no boletas
+  * cambios
+  * cambios
+  * cambios inesperados
+  * actualizado el plugin de desarrollo
+  * cambios en anexas
+  * cambios
+  * cambios inesperados
+  * cambios batch
+  * cambios inesperados
+  * se agrego la parte de rectificatoria
+  * cambios en pagos previos.
+  * referencia a BaseFormularios 3.0.54
+  * Se hace referencia a BaseFormularios 3.0.53
+  * version
+  * cambios inesperados
+  * cambios inesperados
+  * cambios 2}
+  * cambios inesperados
+  * regularizaciones
+  * se agrego la logica para el manejo de boletas y rectificacion, considerar el indrec del formulario
+  * actualizar anexas se agregan mas queries
+  * added missing test
+  * guardar cambios integracion continua
+  * actualizado el plugin de desarrollo
+  * 
+  * actualizado el plugin de desarrollo
+  * 
+  * 
+  * 
+  * ssss
+  * 
+  * 
+  * 
+  * 
+  * actualizado el plugin de desarrollo
+  * 
+  * 
+  * 
+  * 
+  * actualizado el plugin de desarrollo
+  * actualizado el plugin de desarrollo
+  * actualizado el plugin de desarrollo
+  * actualizado gradle wrapper
+  * actualizado el plugin y agregada configuracion de propiedades de Gradle
+  * borrados archivos no necesarios, actualizado Gradle
+  * 
+  * 
+  * 
+  * Se migrara a GIT
+  * 
+  * 
+  * 
+  * 
+  * 
+  * 
+  * 
+  * 
+  * 
+  * 
+  * 
+  * 
+  * 
+  * 
+  * 
+  * cambios de ultimo momento
+  * 
+  * 
+  * 
+  * 
+  * 
+  * 
+  * 
+  * 
+  * 
+  * 
+  * 
+  * 
+  * 
+  * 
+  * 
+  * 
+  * 
+  * 
